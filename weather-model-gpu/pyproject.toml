@@ -1,0 +1,17 @@
+[project]
+name = "weather-model-gpu"
+version = "0.1.0"
+description = "Run ECMWF's AIFS Single v2 weather model on a GPU with Modal"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [
+    { name = "Lara Rostami", email = "rostami.lara@gmail.com" }
+]
+dependencies = [
+    "modal",
+    "matplotlib",
+    "cartopy",
+]
+
+[tool.uv]
+package = false
