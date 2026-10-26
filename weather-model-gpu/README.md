@@ -17,7 +17,7 @@ You need Python 3.13, [uv](https://docs.astral.sh/uv/) and a [Modal](https://mod
 ```bash
 uv sync                        
 uv run modal setup             # one-time: log in to Modal
-uv run modal run 01-forecast/01-forecast.py   
+uv run modal run 01-forecast/forecast.py   
 ```
 
 ## Attribution

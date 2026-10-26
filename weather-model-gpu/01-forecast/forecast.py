@@ -42,7 +42,7 @@ with image.imports():
 
 app = modal.App(name="weather-model")
 
-PLOT_DIR = Path(__file__).parent / "out"
+PLOT_DIR = Path(__file__).parent / "plots"
 
 # Input parameters, per the AIFS Single v2 model card. These are fixed by the
 # checkpoint -- the model takes exactly these fields and nothing else.
