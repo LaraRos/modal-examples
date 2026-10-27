@@ -12,13 +12,26 @@ initial conditions come from the free [ECMWF open data][opendata] feed.
 
 ## Run
 
-You need Python 3.13, [uv](https://docs.astral.sh/uv/) and a [Modal](https://modal.com) account.
+1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
+2. Install the dependencies, including the Modal CLI:
 
-```bash
-uv sync                        
-uv run modal setup             # one-time: log in to Modal
-uv run modal run 01-forecast/forecast.py   
-```
+   ```bash
+   uv sync
+   ```
+
+3. Connect to Modal. This opens a browser, logs you in and saves a token on your laptop. Pick the shared workspace:
+
+   ```bash
+   uv run modal setup
+   ```
+
+4. Point your laptop at the environment.
+
+   ```bash
+   uv run modal environment create weather-workshop   # once per workspace; skip if it already exists
+   uv run modal config set-environment weather-workshop
+   uv run modal config show
+   ```
 
 ## Attribution
 
