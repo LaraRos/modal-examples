@@ -175,9 +175,11 @@ def plot_states(states):
     import matplotlib.tri as tri
     import cartopy.crs as ccrs
     import cartopy.feature as cfeature
+    from PIL import Image
 
     PLOT_DIR.mkdir(parents=True, exist_ok=True)
 
+    frames = []
     for state in states:
 
         latitudes = state["latitudes"]
@@ -189,13 +191,20 @@ def plot_states(states):
 
         triangulation = tri.Triangulation(fix(longitudes), latitudes)
 
-        contour=ax.tricontourf(triangulation, values, levels=20, transform=ccrs.PlateCarree(), cmap="RdBu")
-        cbar = fig.colorbar(contour, ax=ax, orientation="vertical", shrink=0.7, label="100u")
+        # Fixed levels so every frame shares the same colour scale; m/s, red is eastward
+        levels = np.linspace(-30, 30, 21)
+        contour = ax.tricontourf(triangulation, values, levels=levels, extend="both", transform=ccrs.PlateCarree(), cmap="RdBu_r")
+        fig.colorbar(contour, ax=ax, orientation="vertical", shrink=0.7, label="100 m wind, eastward (m/s)")
 
-        plt.title("100m winds (100u) at {}".format(state["date"]))
+        plt.title("100 m eastward wind (m/s) at {:%Y-%m-%d %H}Z".format(state["date"]))
         stamp = state["date"].strftime("%Y%m%dT%H%M")
         plt.savefig(PLOT_DIR / f"100u_{stamp}.png")
         plt.close()
+        frames.append(Image.open(PLOT_DIR / f"100u_{stamp}.png").convert("RGB"))
+
+    # One animation of all steps: 400 ms per 6 h step, looping
+    frames[0].save(PLOT_DIR / "100u.gif", save_all=True, append_images=frames[1:], duration=400, loop=0)
+    print(f"wrote {len(frames)} plots and 100u.gif to {PLOT_DIR}")
 
 @app.local_entrypoint()
 def main():

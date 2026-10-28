@@ -10,6 +10,10 @@ Model weights are CC BY 4.0, so attribution is a license condition.
 Inference runs through ECMWF's [anemoi-inference][anemoi] framework, and the
 initial conditions come from the free [ECMWF open data][opendata] feed.
 
+![Animated map of the 100 m eastward wind over Sweden, one frame per six hours, from 01-forecast/forecast.py](docs/100u.gif)
+
+*100 m eastward wind (m/s), 24 h from the 2026-10-28 00Z cycle, rendered by `01-forecast/forecast.py`. Based on data and products of ECMWF, CC BY 4.0.*
+
 ## Run
 
 1. Install [uv](https://docs.astral.sh/uv/getting-started/installation/).
@@ -31,6 +35,12 @@ initial conditions come from the free [ECMWF open data][opendata] feed.
    uv run modal environment create weather-workshop   # once per workspace; skip if it already exists
    uv run modal config set-environment weather-workshop
    uv run modal config show
+   ```
+
+5. Run the forecast. The first run downloads the weights and today's input to the Volume and builds the image if it is not there yet, so give it a few minutes:
+
+   ```bash
+   uv run modal run 02-forecast-fast/forecast.py --fields 2t --download-plots
    ```
 
 ## Attribution
