@@ -37,10 +37,10 @@ initial conditions come from the free [ECMWF open data][opendata] feed.
    uv run modal config show
    ```
 
-5. Run the forecast. The first run downloads the weights and today's input to the Volume and builds the image if it is not there yet, so give it a few minutes:
+5. Run the forecast. The first run builds the image and downloads the weights, so give it a few minutes. The plots and a GIF land in `01-forecast/plots/`:
 
    ```bash
-   uv run modal run 02-forecast-fast/forecast.py --fields 2t --download-plots
+   uv run modal run 01-forecast/forecast.py
    ```
 
 ## Attribution
